@@ -1,0 +1,15 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: reporting-cronjob
+spec:
+  schedule: "0 * * * *"  # Every hour
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: report-tool
+              image: report-tool
+              command: ["sh", "-c", "echo 'Generating report at $(date)'"]
+          restartPolicy: Never
